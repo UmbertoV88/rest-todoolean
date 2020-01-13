@@ -16,5 +16,13 @@ $(document).ready(function() {
             alert("ERRORE")
         }
     });
-    // intercetto il click sul bottone per aggiungere una nuova nota dall'input text 
+    // intercetto il click sul bottone per aggiungere una nuova nota dall'input text
+    // SOLUZIONE A (SENZA CHIAMATA AJAX)
+
+    /*$("#todo-button").click(function(){
+        var newNote = $("#todo-input").val();
+        $("#todo-list").append("<li>" + newNote + "</li>");
+        $("#todo-input").val(" ");
+    })*/
+    
 });
