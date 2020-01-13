@@ -33,11 +33,11 @@ $(document).ready(function() {
 
     $("#todo-list").on("click",".cestino", function(){
         // recupero l'id della nota che voglio cancellare
-        var todo_id = $(this).parent().attr("data-todo_id");
-        console.log(todo_id);
+        var delete_todo_id = $(this).parent().attr("data-todo_id");
+
         // faccio una chiamata ajax con DELETE per cancellare la nota
         $.ajax({
-            url:"http://157.230.17.132:3022/todos/" + todo_id,
+            url:"http://157.230.17.132:3022/todos/" + delete_todo_id,
             method: "DELETE",
             success: function(data){
                 stampa_todos();
@@ -51,15 +51,29 @@ $(document).ready(function() {
     // modificare  un nota:intercetto il click sull'icona della matita
 
     $("#todo-list").on("click",".modifica", function(){
-        // recupero l'id della nota che voglio cancellare
-        var todo_id = $(this).parent().attr("data-todo_id");
-        console.log(todo_id);
-        // faccio una chiamata ajax con PUT per modificare  la nota
+        // recupero l'id della nota che voglio modificare
+        var edit_todo_id = $(this).parent().attr("data-todo_id");
+        console.log(edit_todo_id);
+        // nascondo il testo e mostro l'input con il testo gia valorizzato
+        $(this).parent().find(".todo-text").addClass("hidden");
+        $(this).parent().find(".edit-todo-input").addClass("active");
+
+        $(this).parent().find(".modifica").addClass("hidden");
+        $(this).parent().find(".save-todo").addClass("active");
+    });
+
+    $("#todo-list").on("click",".save-todo", function(){
+        var edit_todo_text = $(this).parent().find(".edit-todo-input").val();
+
+        var edit_todo_id = $(this).parent().attr("data-todo_id");
         $.ajax({
-            url:"http://157.230.17.132:3022/todos/" + todo_id,
+            url:"http://157.230.17.132:3022/todos/" + edit_todo_id,
             method: "PUT",
+            data: {
+                text: edit_todo_text,
+            },
             success: function(data){
-                stampa_todos();
+                stampa_todos()
             },
             error:function(){
                 alert("ERRORE")
@@ -68,13 +82,14 @@ $(document).ready(function() {
     });
 
     function stampa_todos(){
-        // svuoto la lista prima di riempirla nuovamente, altrimenti me la stampa piu volte
-        $("#todo-list").empty();
+
         // faccio la chiamata ajax per prendere i dati della Lista
         $.ajax({
             url:"http://157.230.17.132:3022/todos/",
             method: "GET",
             success: function(data){
+                // svuoto la lista prima di riempirla nuovamente, altrimenti me la stampa piu volte
+                $("#todo-list").empty();
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);

@@ -6,4 +6,34 @@
 .cestino, .modifica {
     float: left;
     cursor: pointer;
+    display: inline-block;
+}
+.modifica.hidden {
+    display: none;
+}
+
+.save-todo{
+    display: none;
+}
+
+.save-todo.active{
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+.edit-todo-input {
+    display: none;
+}
+
+.edit-todo-input.active {
+    display: inline-block;
+}
+
+.todo-text {
+    display: inline-block;
+}
+
+.todo-text.hidden {
+    display: none;
 }

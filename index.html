@@ -29,9 +29,12 @@
          </div>
         <script id="template" type="text/x-handlebars-tamplate">
 
-            <li data-todo_id="{{ todo_id }}"> {{ todo_text }}
+            <li data-todo_id="{{ todo_id }}">
+            <span class="todo-text">  {{ todo_text }}</span>
                 <i class="fas fa-trash-alt cestino"></i>
                 <i class="fas fa-edit modifica"></i>
+                <i class="fas fa-save save-todo"></i>
+                <input class="edit-todo-input" type="text" value=" {{ todo_text }}">
             </li>
         </script>
      </body>
