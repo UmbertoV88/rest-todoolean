@@ -16,20 +16,8 @@ $(document).ready(function() {
     // svuoto dal testo l'input
     $("#todo-input").val(" ");
 
-    // eseguo una chiamata Ajax con method POST per memorizzare la nota inserita dall'utente
-        $.ajax({
-            url:"http://157.230.17.132:3022/todos/",
-            method: "POST",
-            data: {
-                text: newNote
-            },
-            success: function(data){
-                stampa_todos()
-            },
-            error:function(){
-                alert("ERRORE")
-            }
-        });
+    creo_todo(newNote);
+
     });
 
     function stampa_todos(){
@@ -44,13 +32,30 @@ $(document).ready(function() {
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
                     var testo_todo = data[i].text;
-                    console.log(testo_todo);
-                     $("#todo-list").append("<li>" + testo_todo + "</li>");
+                    var id_todo = data[i].id;
+                     $("#todo-list").append('<li data-todo_id="' + id_todo + '">' + testo_todo + "</li>");
                 }
             },
             error:function(){
                 alert("ERRORE")
             }
         });
-    }
+    };
+
+    function creo_todo(newNote){
+        // eseguo una chiamata Ajax con method POST per memorizzare la nota inserita dall'utente
+        $.ajax({
+            url:"http://157.230.17.132:3022/todos/",
+            method: "POST",
+            data: {
+                text: newNote
+            },
+            success: function(data){
+                stampa_todos()
+            },
+            error:function(){
+                alert("ERRORE")
+            }
+        });
+    };
 });
